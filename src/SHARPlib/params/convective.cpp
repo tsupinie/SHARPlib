@@ -20,6 +20,8 @@
 #include <SHARPlib/thermo.h>
 #include <SHARPlib/winds.h>
 
+#include <algorithm>
+
 namespace sharp {
 
 PressureLayer effective_inflow_layer(
