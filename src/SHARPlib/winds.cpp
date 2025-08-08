@@ -49,6 +49,10 @@ float vector_angle(float u_comp, float v_comp) {
     return wind_direction;
 }
 
+float vector_angle(WindComponents comp) {
+    return vector_angle(comp.u, comp.v);
+}
+
 float vector_magnitude(float u_comp, float v_comp) {
 #ifndef NO_QC
     if ((u_comp == MISSING) || (v_comp == MISSING)) return MISSING;
@@ -56,11 +60,19 @@ float vector_magnitude(float u_comp, float v_comp) {
     return std::sqrt((u_comp * u_comp) + (v_comp * v_comp));
 }
 
+float vector_magnitude(WindComponents comp) {
+    return vector_magnitude(comp.u, comp.v);
+}
+
 float vector_magnitude_precise(float u_comp, float v_comp) {
 #ifndef NO_QC
     if ((u_comp == MISSING) || (v_comp == MISSING)) return MISSING;
 #endif
     return std::hypot(u_comp, v_comp);
+}
+
+float vector_magnitude_precise(WindComponents comp) {
+    return vector_magnitude_precise(comp.u, comp.v);
 }
 
 WindVector components_to_vector(float u_comp, float v_comp) {
@@ -90,6 +102,7 @@ WindComponents vector_to_components(float wind_speed, float wind_direction) {
 }
 
 WindComponents vector_to_components(WindVector vect) {
+    // Is there a reason this isn't simply a call to the float, float version of vector_to_components?
 #ifndef NO_QC
     if ((vect.speed == MISSING) || (vect.direction == MISSING))
         return {MISSING, MISSING};
